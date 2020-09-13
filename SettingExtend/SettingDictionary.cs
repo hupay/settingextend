@@ -18,8 +18,6 @@ namespace SettingExtend
             var dic = new Dictionary<string, string>();
             for (int i = 1; i < array.Length; i++)
             {
-                if (string.IsNullOrEmpty(array[i])) continue;
-                if (array[i].StartsWith(Constant.Notes)) continue;
                 var arr = array[i].Split(Constant.Equal);
                 if (arr.Length != 2)
                     throw new SettingException("[头部]-[类型]-[字典]的语法错误！示例：name=china");

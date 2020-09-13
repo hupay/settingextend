@@ -19,7 +19,6 @@ namespace SettingExtend
             var arr = array
                 .Skip(1)
                 .Take(array.Length - 1)
-                .Where(x => !x.StartsWith(Constant.Notes) && !string.IsNullOrEmpty(x))
                 .ToArray();
             Array = arr;
             return arr;

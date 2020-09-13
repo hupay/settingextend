@@ -23,7 +23,7 @@ namespace SettingExtend
             {
                 foreach (var item in nslist)
                 {
-                    ns += item + "\r\n";
+                    ns += item + Constant.LineRreak;
                 }
             }
             string strExpre = @"
@@ -55,7 +55,7 @@ $code
             strExpre = strExpre.Replace("$ns", ns).Replace("$code", code);
             dynamic script = CSScript.Evaluator.LoadCode(strExpre);
             script.Exec();
-            return script.Result == null ? string.Empty : string.Join("\r\n", script.Result);
+            return script.Result == null ? string.Empty : string.Join(Constant.LineRreak, script.Result);
         }
     }
 }
