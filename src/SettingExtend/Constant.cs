@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SettingExtend
 {
@@ -18,15 +19,15 @@ namespace SettingExtend
         /// <summary>
         /// 类型
         /// </summary>
-        public const string Type = "type" + Space;
+        public static string Type = SettingHeadEnum.type.ToString() + Space;
         /// <summary>
         /// 引用
         /// </summary>
-        public const string Import = "import" + Space;
+        public static string Import = SettingHeadEnum.import.ToString() + Space;
         /// <summary>
         /// 变量
         /// </summary>
-        public const string Variable = "var" + Space;
+        public static string Variable = SettingHeadEnum.var.ToString() + Space;
 
         #endregion
 
@@ -43,15 +44,15 @@ namespace SettingExtend
         /// <summary>
         /// 数组
         /// </summary>
-        public const string Array = "array";
+        public static string Array = SettingHeadTypeEnum.array.ToString();
         /// <summary>
         /// 字典
         /// </summary>
-        public const string Dictionary = "dictionary";
+        public static string Dictionary = SettingHeadTypeEnum.dictionary.ToString();
         /// <summary>
         /// 代码
         /// </summary>
-        public const string Code = "code";
+        public static string Code = SettingHeadTypeEnum.code.ToString();
         #endregion
 
         #region 引用常量
@@ -75,5 +76,10 @@ namespace SettingExtend
         public const string CodeEnd = "[/code]";
         #endregion
 
+
+        #region 常用正则
+
+        public static Regex ImportReg = new Regex($"^{Import} ({Path}|{Dll}|{NameSpace}) (.+)$");
+        #endregion
     }
 }

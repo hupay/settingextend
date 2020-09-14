@@ -53,7 +53,15 @@ $code
 }
 ";
             strExpre = strExpre.Replace("$ns", ns).Replace("$code", code);
-            dynamic script = CSScript.Evaluator.LoadCode(strExpre);
+            var eva = CSScript.Evaluator;
+            if (dlllist != null && dlllist.Any())
+            {
+                foreach (var item in dlllist)
+                {
+                    eva = eva.ReferenceAssembly(item);
+                }
+            }
+            dynamic script = eva.LoadCode(strExpre);
             script.Exec();
             return script.Result == null ? string.Empty : string.Join(Constant.LineRreak, script.Result);
         }

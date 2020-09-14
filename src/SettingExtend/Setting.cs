@@ -10,7 +10,6 @@ namespace SettingExtend
     /// </summary>
     public class Setting : ISetting
     {
-        static Regex ImportReg = new Regex("^import (path|dll|namespace) (.+)$");
         ///// <summary>
         ///// 配置节点的路径
         ///// </summary>
@@ -32,18 +31,18 @@ namespace SettingExtend
             Parse();
         }
 
-        public string Parse()
+        public void Parse()
         {
             if (string.IsNullOrWhiteSpace(_value))
-                return default;
+                return;
             var array = _value.Split(Constant.LineRreak);
             array = Filter(array);
             if (array.Length == 0)
-                return default;
+                return;
             var first = array.First();
             if (first.StartsWith(Constant.Type))
             {
-                return ParseType(array);
+                ParseType(array);
             }
             else if (first.StartsWith(Constant.Import)||first.StartsWith(Constant.Variable))
             {
@@ -51,7 +50,7 @@ namespace SettingExtend
             }
             else
             {
-                return ParseText(array);
+                ParseText(array);
             }
         }
 
@@ -60,27 +59,47 @@ namespace SettingExtend
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
-        public string ParseType(string[] array)
+        public void ParseType(string[] array)
         {
             var first = array.First();
             var arr = first.Split(Constant.Space);
             if (arr.Length != 2)
                 throw new SettingException("[头部]-[类型]的语法错误！");
-            switch (arr[1])
+            if (TypeDic.ContainsKey(arr[1]))
+                TypeDic[arr[1]](array);
+            else
             {
-                case Constant.Array:
-                    ParseTypeArray(array);
-                    return default;
-                case Constant.Dictionary:
-                    ParseTypeDictionary(array);
-                    return default;
-                case Constant.Code:
-                    ParseTypeCode(array);
-                    return default;
-                default:
-                    throw new SettingException("[头部]-[类型]出现不支持的类型：" + arr[1]);
+                TypeDic.Values.Last()(array);
             }
         }
+
+        Dictionary<string, Action<string[]>> TypeDic => new Dictionary<string, Action<string[]>>
+        {
+            {
+                Constant.Array, x=>
+                {
+                    ParseTypeArray(x);
+                    Type = SettingHeadEnum.type;
+                }
+            },
+            {
+                Constant.Dictionary, x=>
+                {
+                    ParseTypeDictionary(x);
+                    Type = SettingHeadEnum.type;
+                }
+            },{
+                Constant.Code, x=>
+                {
+                    ParseTypeCode(x);
+                }
+            },{
+                "last", x=>
+                {
+                    throw new SettingException("[头部]-[类型]出现不支持的类型：" + x);
+                }
+            },
+        };
 
         public virtual string[] ParseTypeArray(string[] array)
         {
@@ -116,29 +135,62 @@ namespace SettingExtend
 
         private void ParseHearders(string[] array)
         {
+            List<string> list = new List<string>(),
+                dlllist = new List<string>(),
+                nslist = new List<string>(),
+                codelist = new List<string>();
+            List<Setting> settings = new List<Setting>();
+            bool code = false;
             foreach (var item in array)
             {
                 if (item.StartsWith(Constant.Import))
                 {
-                        var coll = ImportReg.Match(item);
+                    var coll = Constant.ImportReg.Match(item);
                     if (coll.Success)
                     {
                         string type = coll.Groups[1].Value,
                             name=coll.Groups[2].Value;
+                        if (string.IsNullOrWhiteSpace(name))
+                            throw new SettingException("语法错误。当前为：" + item);
                         switch (type)
                         {
                             case Constant.Path:
                                 var value = Get(name);
-
+                                settings.Add(new Setting(value));
                                 break;
                             case Constant.Dll:
+                                dlllist.Add(name);
                                 break;
                             case Constant.NameSpace:
+                                nslist.Add(name);
                                 break;
                             default:
-                                break;
+                                throw new SettingException("无效语法。[import]参数后面应为path、dll、namespace中的一种。");
                         }
                     }
+                }
+                else if (item.StartsWith(Constant.Variable))
+                {
+                    // TODO 变量类型的处理
+                }
+                else if (item.StartsWith(Constant.CodeStart))
+                {
+                    code = true;
+                }
+                else if (code)
+                {
+                    codelist.Add(item);
+                }
+                else if (item.StartsWith(Constant.CodeEnd))
+                {
+                    code = false;
+                    var result = CodeRun.Run(string.Join(Constant.LineRreak, codelist), dlllist, nslist);
+                    list.Add(result);
+                    codelist.Clear();
+                }
+                else
+                {
+                    list.Add(item);
                 }
             }
         }
