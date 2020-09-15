@@ -7,21 +7,14 @@ namespace SettingExtend
 {
     public class SettingArray :Setting
     {
-        public string[] Array { get; private set; }
+        public string[] Array { get; set; }
         public string this[int index]
         {
             get { return Array[index]; }
         }
-        public SettingArray(string value) : base(value) { }
-
-        public override string[] ParseTypeArray(string[] array)
+        public SettingArray(string key, string value) : base(key, value)
         {
-            var arr = array
-                .Skip(1)
-                .Take(array.Length - 1)
-                .ToArray();
-            Array = arr;
-            return arr;
+            Type = SettingHeadTypeEnum.array;
         }
     }
 }

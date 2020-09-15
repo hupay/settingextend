@@ -14,6 +14,7 @@ namespace SettingExtend
         public const string Notes = "#";
         public const string Equal = "=";
         public const string LineRreak = "\r\n";
+        public const string Last = "last";
         #region 语法头
 
         /// <summary>

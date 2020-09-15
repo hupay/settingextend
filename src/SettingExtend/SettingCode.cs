@@ -6,13 +6,10 @@ namespace SettingExtend
 {
     public class SettingCode : Setting
     {
-        public string Code { get; private set; }
-        public SettingCode(string value) : base(value) { }
-        public override string[] ParseTypeCode(string[] array)
+        public string Result { get; set; }
+        public SettingCode(string key, string value) : base(key, value)
         {
-            Code = string.Join(Constant.LineRreak, array);
-            return array;
+            Type = SettingHeadTypeEnum.code;
         }
-
     }
 }

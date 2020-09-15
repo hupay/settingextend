@@ -22,6 +22,10 @@ namespace SettingExtend
     public enum SettingHeadTypeEnum
     {
         /// <summary>
+        /// 文本
+        /// </summary>
+        text,
+        /// <summary>
         /// 数组
         /// </summary>
         array,

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SettingExtend
 {
-    interface ISetting
+    public interface IConfiguration
     {
         /// <summary>
         /// 根据key获取配置节值
