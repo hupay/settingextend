@@ -40,7 +40,7 @@ print(DateTime.Now("yyyy-MM-dd"));
 ### 引用
 此类输出对象值为字符串。设计用途为公共页面渲染。语法如下：
 ```
-import [path|dll|namespace] [路径|dll名称|命名空间]
+import [path|dll|namespace] [路径|dll名称|命名空间] [变量名]
 ```
 ### 变量
 暂未实现

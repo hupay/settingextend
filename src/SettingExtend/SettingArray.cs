@@ -8,6 +8,10 @@ namespace SettingExtend
     public class SettingArray :Setting
     {
         public string[] Array { get; set; }
+        /// <summary>
+        /// 变量名
+        /// </summary>
+        public string Name { get; set; }
         public string this[int index]
         {
             get { return Array[index]; }

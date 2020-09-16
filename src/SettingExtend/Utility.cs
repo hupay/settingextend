@@ -83,6 +83,13 @@ namespace SettingExtend
             }
         }
 
+        /// <summary>
+        /// 数组类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static SettingArray ParseTypeArray(string key, string value, string[] array)
         {
             var arr = array
@@ -90,6 +97,13 @@ namespace SettingExtend
             return new SettingArray(key, value) { Array = arr };
         }
 
+        /// <summary>
+        /// 字典类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static SettingDictionary ParseTypeDictionary(string key, string value, string[] array)
         {
             var dic = new Dictionary<string, string>();
@@ -133,6 +147,12 @@ namespace SettingExtend
             return list.ToArray();
         }
 
+        /// <summary>
+        /// 文本、代码混合类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="array"></param>
+        /// <returns></returns>
         private static Setting ParseTextCode(string key,string[] array)
         {
             List<string> list = new List<string>(),
@@ -145,11 +165,12 @@ namespace SettingExtend
             {
                 if (item.StartsWith(Constant.Import))
                 {
-                    var coll = Constant.ImportReg.Match(item);
-                    if (coll.Success)
+                    var match = Constant.ImportReg.Match(item);
+                    if (match.Success)
                     {
-                        string type = coll.Groups[1].Value,
-                            name = coll.Groups[2].Value;
+                        string type = match.Groups[1].Value,
+                            name = match.Groups[2].Value,
+                            var = match.Groups.Count == 4 ? match.Groups[3].Value : null;
                         if (string.IsNullOrWhiteSpace(name))
                             throw new SettingException("语法错误。当前为：" + item);
                         switch (type)
@@ -157,6 +178,16 @@ namespace SettingExtend
                             case Constant.Path:
                                 var value = Configuration.Get(name);
                                 var model = Parse(value);
+                                if (model.GetType() == typeof(SettingArray))
+                                {
+                                    var b = model as SettingArray;
+                                    b.Name = var;
+                                }
+                                if (model.GetType() == typeof(SettingDictionary))
+                                {
+                                    var b = model as SettingDictionary;
+                                    b.Name = var;
+                                }
                                 settings.Add(model);
                                 break;
                             case Constant.Dll:
@@ -192,19 +223,57 @@ namespace SettingExtend
                 }
                 else
                 {
-                    list.Add(item);
+                    var temp = Replace(settings, item);
+                    list.Add(temp);
                 }
             }
             var val = string.Join(Constant.LineRreak, list);
             return new Setting(key, val);
         }
 
+        /// <summary>
+        /// 文本类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="array"></param>
+        /// <returns></returns>
         private static Setting ParseText(string key, string[] array)
         {
             var arr = array
                 .Where(x => !x.StartsWith(Constant.Notes) && !string.IsNullOrEmpty(x));
             var result = string.Join(Constant.LineRreak, arr);
             return new Setting(key, result);
+        }
+
+        /// <summary>
+        /// 替换字符串中约定的数据类型。
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        private static string Replace(List<Setting> settings,string str)
+        {
+            if (settings == null || !settings.Any()) return str;
+            foreach (var item in settings)
+            {
+                if (item.GetType() == typeof(SettingArray))
+                {
+                    var obj = item as SettingArray;
+                    for (int i = 0; i < obj.Array.Length; i++)
+                    {
+                        str = str.Replace($"${obj.Name}[{i}]", obj[i]);
+                    }
+                }
+                if (item.GetType() == typeof(SettingDictionary))
+                {
+                    var obj = item as SettingDictionary;
+                    foreach (var i in obj.Dictionary.Keys)
+                    {
+                        str = str.Replace($"${obj.Name}[\"{i}\"]", obj[i]);
+                    }
+                }
+            }
+            return str;
         }
     }
 }
