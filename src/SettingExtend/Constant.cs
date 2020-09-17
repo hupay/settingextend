@@ -80,7 +80,7 @@ namespace SettingExtend
 
         #region 常用正则
 
-        public static Regex ImportReg = new Regex($"^{Import} ({Path}|{Dll}|{NameSpace}) (\S+)(?: (\S+))?$");
+        public static Regex ImportReg = new Regex($"^{Import} ({Path}|{Dll}|{NameSpace}) (\\S+)(?: (\\S+))?$");
         #endregion
     }
 }

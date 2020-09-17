@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,12 +15,28 @@ namespace SettingExtend
         {
             if (Configuration == null)
             {
+                var config = GetConfig();
+                var type = config["settingextend.provider"];
+                if (string.IsNullOrWhiteSpace(type))
+                    throw new SettingException("未配置配置供应者");
                 // TODO 改为从配置中获取
-                var obj = Activator.CreateInstance(Type.GetType("etcd"));
+                var obj = Activator.CreateInstance(Type.GetType(type));
                 Configuration = obj as IConfiguration;
                 if (Configuration == null)
-                    throw new SettingException("配置");
+                    throw new SettingException("配置供应者生成失败");
             }
+        }
+
+        /// <summary>
+        /// 获得配置文件
+        /// </summary>
+        /// <returns></returns>
+        public static IConfigurationRoot GetConfig()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+            return config;
         }
         
         public static Setting Parse(string key)
@@ -79,7 +96,7 @@ namespace SettingExtend
             }
             else
             {
-                throw new SettingException("[头部]-[类型]出现不支持的类型：" + x);
+                throw new SettingException("[头部]-[类型]出现不支持的类型：" + arr[1]);
             }
         }
 
