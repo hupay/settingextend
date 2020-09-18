@@ -218,10 +218,10 @@ namespace SettingExtend
                         }
                     }
                 }
-                else if (item.StartsWith(Constant.Variable))
-                {
-                    // TODO 变量类型的处理
-                }
+                //else if (item.StartsWith(Constant.Variable))
+                //{
+                //    // TODO 变量类型的处理
+                //}
                 else if (item.StartsWith(Constant.CodeStart))
                 {
                     code = true;

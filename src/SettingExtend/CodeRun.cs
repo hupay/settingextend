@@ -23,7 +23,7 @@ namespace SettingExtend
             {
                 foreach (var item in nslist)
                 {
-                    ns += item + Constant.LineRreak;
+                    ns += "using " + item + Constant.LineRreak + ";";
                 }
             }
             string strExpre = @"
@@ -54,13 +54,14 @@ $code
 ";
             strExpre = strExpre.Replace("$ns", ns).Replace("$code", code);
             var eva = CSScript.Evaluator;
-            if (dlllist != null && dlllist.Any())
-            {
-                foreach (var item in dlllist)
-                {
-                    eva = eva.ReferenceAssembly(item);
-                }
-            }
+            // 存在问题，需要检查
+            //if (dlllist != null && dlllist.Any())
+            //{
+            //    foreach (var item in dlllist)
+            //    {
+            //        eva = eva.ReferenceAssemblyByName(item);
+            //    }
+            //}
             dynamic script = eva.LoadCode(strExpre);
             script.Exec();
             return script.Result == null ? string.Empty : string.Join(Constant.LineRreak, script.Result);

@@ -85,5 +85,16 @@ namespace SettingExtend.Test
             Assert.Contains("输出1", setting.Value);
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Value);
         }
+
+
+        [Fact]
+        public void read_complexText4_config()
+        {
+            var setting = Utility.Parse("complexText4.txt");
+            Assert.Contains("33", setting.Value);
+            Assert.Contains("目前拥有的权限为：用户", setting.Value);
+            Assert.Contains("输出1", setting.Value);
+            Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Value);
+        }
     }
 }
