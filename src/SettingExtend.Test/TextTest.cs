@@ -87,10 +87,12 @@ namespace SettingExtend.Test
         }
 
 
-        [Fact]
-        public void read_complexText4_config()
+        [Theory]
+        [InlineData("complexText4.txt")]
+        [InlineData("complexText5.txt")]
+        public void read_complexText4_config(string key)
         {
-            var setting = Utility.Parse("complexText4.txt");
+            var setting = Utility.Parse(key);
             Assert.Contains("33", setting.Value);
             Assert.Contains("目前拥有的权限为：用户", setting.Value);
             Assert.Contains("输出1", setting.Value);
