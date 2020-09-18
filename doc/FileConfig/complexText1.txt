@@ -1,0 +1,5 @@
+# 这是注释和空行
+import path array.txt array
+
+这是一个测试文件！
+$array[0]

@@ -1,0 +1,4 @@
+# 这是代码
+type code
+
+print("输出1")

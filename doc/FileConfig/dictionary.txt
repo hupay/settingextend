@@ -1,0 +1,6 @@
+# 这是一个字典，解析对象中键值均为字符串
+type dictionary
+
+user=用户
+admin=管理员
+editor=编辑

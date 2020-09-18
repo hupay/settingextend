@@ -21,7 +21,7 @@ type array
 字典：
 ```
 # 这是一个字典，解析对象中键值均为字符串
-type array
+type dictionary
 
 user=用户
 admin=管理员
@@ -35,7 +35,7 @@ editor=编辑
 type code
 
 print("输出1");
-print(DateTime.Now("yyyy-MM-dd"));
+print(DateTime.Now.ToString("yyyy-MM-dd"));
 ```
 ### 引用
 此类输出对象值为字符串。设计用途为公共页面渲染。语法如下：

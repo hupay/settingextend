@@ -1,0 +1,5 @@
+# 这是代码
+type code
+
+print("输出1");
+print(DateTime.Now.ToString("yyyy-MM-dd"));

@@ -79,6 +79,7 @@ namespace SettingExtend
         public static Setting ParseType(string key,string value, string[] array)
         {
             var first = array.First();
+            array = array.Skip(1).ToArray();
             var arr = first.Split(Constant.Space);
             if (arr.Length != 2)
                 throw new SettingException("[头部]-[类型]的语法错误！");
@@ -124,7 +125,7 @@ namespace SettingExtend
         public static SettingDictionary ParseTypeDictionary(string key, string value, string[] array)
         {
             var dic = new Dictionary<string, string>();
-            for (int i = 1; i < array.Length; i++)
+            for (int i = 0; i < array.Length; i++)
             {
                 var arr = array[i].Split(Constant.Equal);
                 if (arr.Length != 2)
@@ -193,8 +194,7 @@ namespace SettingExtend
                         switch (type)
                         {
                             case Constant.Path:
-                                var value = Configuration.Get(name);
-                                var model = Parse(value);
+                                var model = Parse(name);
                                 if (model.GetType() == typeof(SettingArray))
                                 {
                                     var b = model as SettingArray;
@@ -226,10 +226,6 @@ namespace SettingExtend
                 {
                     code = true;
                 }
-                else if (code)
-                {
-                    codelist.Add(item);
-                }
                 else if (item.StartsWith(Constant.CodeEnd))
                 {
                     code = false;
@@ -237,6 +233,10 @@ namespace SettingExtend
                     var result = CodeRun.Run(str, dlllist, nslist);
                     list.Add(result);
                     codelist.Clear();
+                }
+                else if (code)
+                {
+                    codelist.Add(item);
                 }
                 else
                 {

@@ -1,0 +1,12 @@
+# 这是注释和空行
+import path array.txt array
+import path dictionary.txt dic
+
+这是一个测试文件！
+$array[0]
+目前拥有的权限为：$dic["user"]
+[code]
+print("输出1");
+print(DateTime.Now.ToString("yyyy-MM-dd"));
+[/code]
+结尾
