@@ -38,6 +38,12 @@ namespace SettingExtend.Test
         }
 
         [Fact]
+        public void read_dictionary_repeat_config()
+        {
+            Assert.ThrowsAsync<SettingException>(() => Task.FromResult(Utility.Parse("dictionary2.txt")));
+        }
+
+        [Fact]
         public void read_dictionary_config()
         {
             var setting = Utility.Parse<SettingDictionary>("dictionary.txt");

@@ -1,6 +1,10 @@
 # settingextend
 灵感来源于公司的一个公共类库，想对这个进行重新设计。实现配置内容的引用，让配置更简单、灵活。经过处理后获得一串字符串，用于页面展示。或者获得一种数据类型（目前只有数组和字典），用于代码编写。
 
+# 存在的问题
+- 代码整体逻辑使用字符串的查找匹配，希望后续能找到更好的方法来代替。
+- 语法设计较简陋，后续会持续完善。
+
 # 语法
 将配置值划分为头部和配置两部分。头部是声明此配置的类型，目前有类型、引用共两种。<br/>
 头部通过关键词来识别。
@@ -46,3 +50,14 @@ import [path|dll|namespace] [路径|dll名称|命名空间] [变量名]
 ```
 ### 变量
 会引起代码中变量冲突，暂时不实现。
+
+# 使用
+在“appsettings.json”中新增“settingextend.provider”键，值为对应供应者的全部typename。见单元测试。<br/>
+目前单元测试里提供了一种基于文件的配置供应者。通过扩展，理论上支持etcd、zookeeper这些统一配置服务。
+```json
+{
+  // 配置供应者配置
+  "settingextend.provider": "SettingExtend.Test.FileConfigProvider,SettingExtend.Test",
+  "FileConfigPath": "../../../../../doc/FileConfig"
+}
+```

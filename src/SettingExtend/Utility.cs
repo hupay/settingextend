@@ -19,7 +19,6 @@ namespace SettingExtend
                 var type = config["settingextend.provider"];
                 if (string.IsNullOrWhiteSpace(type))
                     throw new SettingException("未配置配置供应者");
-                // TODO 改为从配置中获取
                 var obj = Activator.CreateInstance(Type.GetType(type));
                 Configuration = obj as IConfiguration;
                 if (Configuration == null)
