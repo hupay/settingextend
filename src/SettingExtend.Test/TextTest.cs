@@ -19,7 +19,7 @@ namespace SettingExtend.Test
         public void read_text_config_with_note_emptyline()
         {
             var setting = Utility.Parse("Text2.txt");
-            Assert.Equal("ÕâÊÇÒ»¸ö²âÊÔÎÄ¼ş£¡", setting.Value);
+            Assert.Equal("è¿™æ˜¯ä¸€ä¸ªæµ‹è¯•æ–‡ä»¶ï¼", setting.Value);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace SettingExtend.Test
         {
             var setting = Utility.Parse<SettingArray>("array.txt");
             Assert.Equal("33", setting[0]);
-            Assert.Equal("ÄêÁä", setting[1]);
+            Assert.Equal("å¹´é¾„", setting[1]);
             Assert.Equal("abc", setting[2]);
         }
 
@@ -47,16 +47,16 @@ namespace SettingExtend.Test
         public void read_dictionary_config()
         {
             var setting = Utility.Parse<SettingDictionary>("dictionary.txt");
-            Assert.Equal("ÓÃ»§", setting["user"]);
-            Assert.Equal("¹ÜÀíÔ±", setting["admin"]);
-            Assert.Equal("±à¼­", setting["editor"]);
+            Assert.Equal("ç”¨æˆ·", setting["user"]);
+            Assert.Equal("ç®¡ç†å‘˜", setting["admin"]);
+            Assert.Equal("ç¼–è¾‘", setting["editor"]);
         }
 
         [Fact]
         public void read_simplecode_config()
         {
             var setting = Utility.Parse<SettingCode>("simplecode.txt");
-            Assert.Contains("Êä³ö1", setting.Result);
+            Assert.Contains("è¾“å‡º1", setting.Result);
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Result);
         }
 
@@ -79,7 +79,7 @@ namespace SettingExtend.Test
         {
             var setting = Utility.Parse("complexText2.txt");
             Assert.Contains("33", setting.Value);
-            Assert.Contains("Ä¿Ç°ÓµÓĞµÄÈ¨ÏŞÎª£ºÓÃ»§", setting.Value);
+            Assert.Contains("ç›®å‰æ‹¥æœ‰çš„æƒé™ä¸ºï¼šç”¨æˆ·", setting.Value);
         }
 
         [Fact]
@@ -87,8 +87,8 @@ namespace SettingExtend.Test
         {
             var setting = Utility.Parse("complexText3.txt");
             Assert.Contains("33", setting.Value);
-            Assert.Contains("Ä¿Ç°ÓµÓĞµÄÈ¨ÏŞÎª£ºÓÃ»§", setting.Value);
-            Assert.Contains("Êä³ö1", setting.Value);
+            Assert.Contains("ç›®å‰æ‹¥æœ‰çš„æƒé™ä¸ºï¼šç”¨æˆ·", setting.Value);
+            Assert.Contains("è¾“å‡º1", setting.Value);
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Value);
         }
 
@@ -100,8 +100,8 @@ namespace SettingExtend.Test
         {
             var setting = Utility.Parse(key);
             Assert.Contains("33", setting.Value);
-            Assert.Contains("Ä¿Ç°ÓµÓĞµÄÈ¨ÏŞÎª£ºÓÃ»§", setting.Value);
-            Assert.Contains("Êä³ö1", setting.Value);
+            Assert.Contains("ç›®å‰æ‹¥æœ‰çš„æƒé™ä¸ºï¼šç”¨æˆ·", setting.Value);
+            Assert.Contains("è¾“å‡º1", setting.Value);
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Value);
         }
     }
