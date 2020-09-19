@@ -1,4 +1,5 @@
 # settingextend
+[![CI](https://github.com/huxb-home/settingextend/workflows/.NET%20Core/badge.svg)](https://github.com/huxb-home/settingextend)
 灵感来源于公司的一个公共类库，想对这个进行重新设计。实现配置内容的引用，让配置更简单、灵活。经过处理后获得一串字符串，用于页面展示。或者获得一种数据类型（目前只有数组和字典），用于代码编写。
 
 # 存在的问题
