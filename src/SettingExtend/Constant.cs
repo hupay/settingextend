@@ -13,7 +13,7 @@ namespace SettingExtend
         public const string Space = " ";
         public const string Notes = "#";
         public const string Equal = "=";
-        public const string LineRreak = "\r\n";
+        public static string LineRreak = Environment.NewLine;
         public const string Last = "last";
         #region 语法头
 
