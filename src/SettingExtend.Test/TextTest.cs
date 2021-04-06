@@ -1,5 +1,4 @@
 using CSScriptLib;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -8,6 +7,9 @@ namespace SettingExtend.Test
 {
     public class TextTest
     {
+        /// <summary>
+        /// 读取文件1
+        /// </summary>
         [Fact]
         public void read_text_config()
         {
@@ -15,6 +17,10 @@ namespace SettingExtend.Test
             Assert.NotNull(setting);
             Assert.NotEmpty(setting.Value);
         }
+
+        /// <summary>
+        /// 读取文件2
+        /// </summary>
         [Fact]
         public void read_text_config_with_note_emptyline()
         {
@@ -22,12 +28,18 @@ namespace SettingExtend.Test
             Assert.Equal("这是一个测试文件！", setting.Value);
         }
 
+        /// <summary>
+        /// 读取不存在节点
+        /// </summary>
         [Fact]
         public void read_noexists_config()
         {
             Assert.ThrowsAsync<SettingException>(() => Task.FromResult(Utility.Parse("notexists.txt")));
         }
 
+        /// <summary>
+        /// 读取数组
+        /// </summary>
         [Fact]
         public void read_array_config()
         {
@@ -43,6 +55,9 @@ namespace SettingExtend.Test
             Assert.ThrowsAsync<SettingException>(() => Task.FromResult(Utility.Parse("dictionary2.txt")));
         }
 
+        /// <summary>
+        /// 读取字典配置
+        /// </summary>
         [Fact]
         public void read_dictionary_config()
         {
@@ -52,6 +67,9 @@ namespace SettingExtend.Test
             Assert.Equal("编辑", setting["editor"]);
         }
 
+        /// <summary>
+        /// 读取含代码配置
+        /// </summary>
         [Fact]
         public void read_simplecode_config()
         {
@@ -60,13 +78,18 @@ namespace SettingExtend.Test
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Result);
         }
 
+        /// <summary>
+        /// 读取代码出错
+        /// </summary>
         [Fact]
         public void read_errorcode_config()
         {
             Assert.ThrowsAsync<CompilerException>(() => Task.FromResult(Utility.Parse<SettingCode>("errorcode.txt")));
         }
 
-
+        /// <summary>
+        /// 读取文本1
+        /// </summary>
         [Fact]
         public void read_complexText1_config()
         {
@@ -74,6 +97,9 @@ namespace SettingExtend.Test
             Assert.Contains("33", setting.Value);
         }
 
+        /// <summary>
+        /// 读取文本2
+        /// </summary>
         [Fact]
         public void read_complexText2_config()
         {
@@ -82,6 +108,9 @@ namespace SettingExtend.Test
             Assert.Contains("目前拥有的权限为：用户", setting.Value);
         }
 
+        /// <summary>
+        /// 读取文本3
+        /// </summary>
         [Fact]
         public void read_complexText3_config()
         {
@@ -92,7 +121,10 @@ namespace SettingExtend.Test
             Assert.Contains(DateTime.Now.ToString("yyyy-MM-dd"), setting.Value);
         }
 
-
+        /// <summary>
+        /// 读取文本4、5
+        /// </summary>
+        /// <param name="key"></param>
         [Theory]
         [InlineData("complexText4.txt")]
         [InlineData("complexText5.txt")]
