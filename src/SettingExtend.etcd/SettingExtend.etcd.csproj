@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SettingExtend\SettingExtend.csproj" />
+    <ProjectReference Include="..\SettingExtend\SettingExtend.csproj" />
   </ItemGroup>
 
 </Project>
