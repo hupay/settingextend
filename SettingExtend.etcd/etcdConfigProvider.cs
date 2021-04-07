@@ -1,10 +1,10 @@
 ﻿using dotnet_etcd;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SettingExtend.Test
+namespace SettingExtend.etcd
 {
+    /// <summary>
+    /// etcd供应者
+    /// </summary>
     public class etcdConfigProvider : IConfiguration
     {
         private static string URL = null;
@@ -19,6 +19,12 @@ namespace SettingExtend.Test
         {
             etcdClient = new EtcdClient(URL);
         }
+
+        /// <summary>
+        /// 实现方法
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public string Get(string path)
         {
             var response = etcdClient.GetVal(path);
