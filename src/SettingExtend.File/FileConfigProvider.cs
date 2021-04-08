@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace SettingExtend.Test
+namespace SettingExtend.File
 {
     public class FileConfigProvider : IConfiguration
     {
@@ -20,9 +20,9 @@ namespace SettingExtend.Test
         public string Get(string path)
         {
             var filepath = Path.Combine(RootPath, path);
-            if (File.Exists(filepath))
+            if (System.IO.File.Exists(filepath))
             {
-                return File.ReadAllText(filepath);
+                return System.IO.File.ReadAllText(filepath);
             }
             throw new SettingException("配置节不存在！");
         }

@@ -21,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SettingExtend.etcd\SettingExtend.etcd.csproj" />
+    <ProjectReference Include="..\SettingExtend.etcd\SettingExtend.etcd.csproj" />
+    <ProjectReference Include="..\SettingExtend.File\SettingExtend.File.csproj" />
     <ProjectReference Include="..\SettingExtend\SettingExtend.csproj" />
   </ItemGroup>
 
