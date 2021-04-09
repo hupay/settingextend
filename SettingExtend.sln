@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend", "src\Settin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.Test", "src\SettingExtend.Test\SettingExtend.Test.csproj", "{9A3DA110-4049-489C-BDF7-46C5C5E0023A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.etcd", "src\SettingExtend.etcd\SettingExtend.etcd.csproj", "{B226E66C-C5F7-41AA-8C85-1E304AC85E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.Provider.etcd", "src\SettingExtend.etcd\SettingExtend.Provider.etcd.csproj", "{B226E66C-C5F7-41AA-8C85-1E304AC85E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingExtend.File", "src\SettingExtend.File\SettingExtend.File.csproj", "{72124978-480E-4ED5-BCBA-5693796882C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.Provider.File", "src\SettingExtend.File\SettingExtend.Provider.File.csproj", "{72124978-480E-4ED5-BCBA-5693796882C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
