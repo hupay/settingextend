@@ -1,21 +1,21 @@
 ﻿using dotnet_etcd;
 
-namespace SettingExtend.etcd
+namespace SettingExtend.Provider.etcd
 {
     /// <summary>
     /// etcd供应者
     /// </summary>
-    public class etcdConfigProvider : IConfiguration
+    public class etcdConfig : IConfiguration
     {
         private static string URL = null;
-        static etcdConfigProvider()
+        static etcdConfig()
         {
             URL = Utility.GetConfig()["etcdConfigURL"];
             if (string.IsNullOrWhiteSpace(URL))
                 throw new SettingException("配置文件地址未设置。");
         }
         public EtcdClient etcdClient = null;
-        public etcdConfigProvider()
+        public etcdConfig()
         {
             etcdClient = new EtcdClient(URL);
         }

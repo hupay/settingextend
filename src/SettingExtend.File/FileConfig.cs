@@ -1,11 +1,11 @@
 ﻿using System.IO;
 
-namespace SettingExtend.File
+namespace SettingExtend.Provider.File
 {
-    public class FileConfigProvider : IConfiguration
+    public class FileConfig : IConfiguration
     {
         private static string RootPath = null;
-        static FileConfigProvider()
+        static FileConfig()
         {
             RootPath = Utility.GetConfig()["FileConfigPath"];
             if (string.IsNullOrWhiteSpace(RootPath))

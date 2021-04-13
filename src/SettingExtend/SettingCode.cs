@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SettingExtend
+﻿namespace SettingExtend
 {
+    /// <summary>
+    /// 代码类型
+    /// </summary>
     public class SettingCode : Setting
     {
         public string Result { get; set; }
