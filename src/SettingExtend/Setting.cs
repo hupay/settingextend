@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-namespace SettingExtend
+﻿namespace SettingExtend
 {
     /// <summary>
     /// 配置节点实体
@@ -19,7 +14,7 @@ namespace SettingExtend
         /// </summary>
         public string Value { get; protected set; }
         public SettingHeadTypeEnum Type { get; set; }
-        public Setting(string key,string value)
+        public Setting(string key, string value)
         {
             Key = key;
             Value = value;

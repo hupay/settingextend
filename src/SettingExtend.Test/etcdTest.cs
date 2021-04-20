@@ -1,9 +1,7 @@
-﻿//using System;
-//using System.Collections.Generic;
+﻿//using SettingExtend.Provider.etcd;
+//using System;
 //using System.IO;
 //using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
 //using Xunit;
 
 //namespace SettingExtend.Test
@@ -21,7 +19,7 @@
 //            {
 //                throw new Exception("未配置根目录。");
 //            }
-//            var provider = new etcdConfigProvider();
+//            var provider = new etcdConfig();
 //            foreach (var item in files)
 //            {
 //                var p = Path.GetFullPath(item);
