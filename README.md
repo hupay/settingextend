@@ -7,7 +7,10 @@
 - 语法设计较简陋，后续会持续完善。
 
 # 优势
-您可以通过编写自定义供应者程序，实现其他配置服务的接入。
+您可以通过编写自定义供应者程序，实现其他配置服务的接入。目前已经增加了文件和etcd配置获取程序
+
+## 缓存
+存在内置缓存，增加程序响应能力
 
 # 语法
 将配置值划分为头部和配置两部分。头部是声明此配置的类型，目前有类型、引用共两种。<br/>
@@ -61,7 +64,7 @@ import [path|dll|namespace] [路径|dll名称|命名空间] [变量名]
 ```json
 {
   // 配置供应者配置
-  "settingextend.provider": "SettingExtend.Test.FileConfigProvider,SettingExtend.Test",
+  "settingextend.provider": "SettingExtend.Provider.File.FileConfig,SettingExtend.Provider.File",
   "FileConfigPath": "../../../../../doc/FileConfig"
 }
 ```

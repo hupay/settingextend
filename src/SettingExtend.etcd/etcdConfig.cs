@@ -27,8 +27,13 @@ namespace SettingExtend.Provider.etcd
         /// <returns></returns>
         public string Get(string path)
         {
-            var response = etcdClient.GetVal(path);
-            return response;
+            var result = Cache.GetWithCache(path, (x) =>
+            {
+                return etcdClient.GetVal(x);
+            });
+            if (result != null)
+                return result;
+            throw new SettingException("配置节不存在！");
         }
     }
 }

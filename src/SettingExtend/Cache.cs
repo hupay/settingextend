@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 
 namespace SettingExtend
 {
@@ -33,6 +34,20 @@ namespace SettingExtend
             {
                 dictionary.TryUpdate(key, value, key);
             }
+        }
+
+        public static string GetWithCache(string key, Func<string, string> func)
+        {
+            var result = Get(key);
+            if (result != null)
+                return result;
+            result = func(key);
+            if (result != null)
+            {
+                Add(key, result);
+                return result;
+            }
+            throw new SettingException("配置节不存在！");
         }
     }
 }

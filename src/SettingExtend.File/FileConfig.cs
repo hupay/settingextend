@@ -19,11 +19,17 @@ namespace SettingExtend.Provider.File
         /// <returns></returns>
         public string Get(string path)
         {
-            var filepath = Path.Combine(RootPath, path);
-            if (System.IO.File.Exists(filepath))
+            var result = Cache.GetWithCache(path, (x) =>
             {
-                return System.IO.File.ReadAllText(filepath);
-            }
+                var filepath = Path.Combine(RootPath, x);
+                if (System.IO.File.Exists(filepath))
+                {
+                    return System.IO.File.ReadAllText(filepath);
+                }
+                return null;
+            });
+            if (result != null)
+                return result;
             throw new SettingException("配置节不存在！");
         }
     }
