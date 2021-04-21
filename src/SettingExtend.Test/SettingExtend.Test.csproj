@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SettingExtend.etcd\SettingExtend.Provider.etcd.csproj" />
+    <ProjectReference Include="..\SettingExtend.File\SettingExtend.Provider.File.csproj" />
     <ProjectReference Include="..\SettingExtend\SettingExtend.csproj" />
   </ItemGroup>
 

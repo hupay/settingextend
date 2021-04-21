@@ -1,11 +1,11 @@
 ﻿using System.IO;
 
-namespace SettingExtend.Test
+namespace SettingExtend.Provider.File
 {
-    public class FileConfigProvider : IConfiguration
+    public class FileConfig : IConfiguration
     {
         private static string RootPath = null;
-        static FileConfigProvider()
+        static FileConfig()
         {
             RootPath = Utility.GetConfig()["FileConfigPath"];
             if (string.IsNullOrWhiteSpace(RootPath))
@@ -20,9 +20,9 @@ namespace SettingExtend.Test
         public string Get(string path)
         {
             var filepath = Path.Combine(RootPath, path);
-            if (File.Exists(filepath))
+            if (System.IO.File.Exists(filepath))
             {
-                return File.ReadAllText(filepath);
+                return System.IO.File.ReadAllText(filepath);
             }
             throw new SettingException("配置节不存在！");
         }

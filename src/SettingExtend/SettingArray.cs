@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SettingExtend
+﻿namespace SettingExtend
 {
-    public class SettingArray :Setting
+    /// <summary>
+    /// 数组类型
+    /// </summary>
+    public class SettingArray : Setting
     {
         public string[] Array { get; set; }
         /// <summary>

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SettingExtend
 {
+    /// <summary>
+    /// 字典类型
+    /// </summary>
     public class SettingDictionary : Setting
     {
         public Dictionary<string, string> Dictionary { get; set; }

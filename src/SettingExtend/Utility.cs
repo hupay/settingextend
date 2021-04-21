@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace SettingExtend
 {
+    /// <summary>
+    /// 帮助类
+    /// </summary>
     public class Utility
     {
         public static IConfiguration Configuration { get; private set; }
@@ -27,7 +28,7 @@ namespace SettingExtend
         }
 
         /// <summary>
-        /// 获得配置文件
+        /// 获得程序配置文件
         /// </summary>
         /// <returns></returns>
         public static IConfigurationRoot GetConfig()
@@ -37,12 +38,23 @@ namespace SettingExtend
                 .Build();
             return config;
         }
-        
+
+        /// <summary>
+        /// 对文本进行格式化，得到配置实体
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static Setting Parse(string key)
         {
             return Parse<Setting>(key);
         }
 
+        /// <summary>
+        /// 对文本进行格式化，得到配置实体
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static T Parse<T>(string key) where T : Setting
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -57,7 +69,7 @@ namespace SettingExtend
             var first = array.First();
             if (first.StartsWith(Constant.Type))
             {
-                return ParseType(key,value,array) as T;
+                return ParseType(key, value, array) as T;
             }
             else if (first.StartsWith(Constant.Import) || first.StartsWith(Constant.Variable))
             {
@@ -65,7 +77,7 @@ namespace SettingExtend
             }
             else
             {
-                return ParseText(key,array) as T;
+                return ParseText(key, array) as T;
             }
         }
 
@@ -75,7 +87,7 @@ namespace SettingExtend
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
-        public static Setting ParseType(string key,string value, string[] array)
+        public static Setting ParseType(string key, string value, string[] array)
         {
             var first = array.First();
             array = array.Skip(1).ToArray();
@@ -141,6 +153,13 @@ namespace SettingExtend
             return new SettingDictionary(key, value) { Dictionary = dic };
         }
 
+        /// <summary>
+        /// 代码类型
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static SettingCode ParseTypeCode(string key, string value, string[] array)
         {
             var result = CodeRun.Run(string.Join(Constant.LineRreak, array));
@@ -170,7 +189,7 @@ namespace SettingExtend
         /// <param name="key"></param>
         /// <param name="array"></param>
         /// <returns></returns>
-        private static Setting ParseTextCode(string key,string[] array)
+        private static Setting ParseTextCode(string key, string[] array)
         {
             List<string> list = new List<string>(),
                 dlllist = new List<string>(),
@@ -267,7 +286,7 @@ namespace SettingExtend
         /// <param name="settings"></param>
         /// <param name="str"></param>
         /// <returns></returns>
-        private static string Replace(List<Setting> settings,string str)
+        private static string Replace(List<Setting> settings, string str)
         {
             if (settings == null || !settings.Any()) return str;
             foreach (var item in settings)
