@@ -32,8 +32,10 @@ namespace SettingExtend
         {
             if(!dictionary.TryAdd(key, value))
             {
-                dictionary.TryUpdate(key, value, key);
+                if (dictionary.TryUpdate(key, value, key))
+                    return;
             }
+            throw new SettingException("加入缓存失败！");
         }
 
         public static string GetWithCache(string key, Func<string, string> func)
