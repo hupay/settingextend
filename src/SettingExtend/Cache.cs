@@ -8,6 +8,9 @@ namespace SettingExtend
     /// </summary>
     public static class Cache
     {
+        /// <summary>
+        /// 跨线程调用
+        /// </summary>
         private static ConcurrentDictionary<string, string> dictionary = new ConcurrentDictionary<string, string>();
 
         /// <summary>
@@ -38,6 +41,12 @@ namespace SettingExtend
             throw new SettingException("加入缓存失败！");
         }
 
+        /// <summary>
+        /// 获取缓存中值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
         public static string GetWithCache(string key, Func<string, string> func)
         {
             var result = Get(key);
