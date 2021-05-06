@@ -31,14 +31,14 @@ namespace SettingExtend
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public static void Add(string key,string value)
+        public static void Add(string key, string value)
         {
-            if(!dictionary.TryAdd(key, value))
+            if (!dictionary.TryAdd(key, value))
             {
                 if (dictionary.TryUpdate(key, value, key))
                     return;
+                throw new SettingException("加入缓存失败！");
             }
-            throw new SettingException("加入缓存失败！");
         }
 
         /// <summary>
