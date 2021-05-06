@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,28 @@ namespace SettingExtend
     /// </summary>
     public class Utility
     {
+        public static ILogger log = new LoggerFactory().CreateLogger<Utility>();
+
+        public static object obj = new object();
+
         public static IConfiguration Configuration { get; private set; }
 
         static Utility()
         {
-            if (Configuration == null)
+            lock (obj)
             {
-                var config = GetConfig();
-                var type = config["settingextend.provider"];
-                if (string.IsNullOrWhiteSpace(type))
-                    throw new SettingException("未配置配置供应者");
-                var obj = Activator.CreateInstance(Type.GetType(type));
-                Configuration = obj as IConfiguration;
                 if (Configuration == null)
-                    throw new SettingException("配置供应者生成失败");
+                {
+                    log.LogDebug("初始化");
+                    var config = GetConfig();
+                    var type = config["settingextend.provider"];
+                    if (string.IsNullOrWhiteSpace(type))
+                        throw new SettingException("未配置配置供应者");
+                    var obj = Activator.CreateInstance(Type.GetType(type));
+                    Configuration = obj as IConfiguration;
+                    if (Configuration == null)
+                        throw new SettingException("配置供应者生成失败");
+                }
             }
         }
 
