@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SettingExtend
 {
+    /// <summary>
+    /// 系统异常
+    /// </summary>
     public class SettingException : Exception
     {
         public SettingException() { }
