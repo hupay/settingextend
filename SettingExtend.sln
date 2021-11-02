@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.Provider.etcd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SettingExtend.Provider.File", "src\SettingExtend.File\SettingExtend.Provider.File.csproj", "{72124978-480E-4ED5-BCBA-5693796882C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingExtend.App", "src\SettingExtend.App\SettingExtend.App.csproj", "{69075294-C07D-4E99-A4B7-2F9BE59B274A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{72124978-480E-4ED5-BCBA-5693796882C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72124978-480E-4ED5-BCBA-5693796882C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72124978-480E-4ED5-BCBA-5693796882C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69075294-C07D-4E99-A4B7-2F9BE59B274A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69075294-C07D-4E99-A4B7-2F9BE59B274A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69075294-C07D-4E99-A4B7-2F9BE59B274A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69075294-C07D-4E99-A4B7-2F9BE59B274A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
