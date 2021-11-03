@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\SettingExtend.Test\appsettings.json" Link="appsettings.json">
+    <None Include="..\..\test\SettingExtend.Test\appsettings.json" Link="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
