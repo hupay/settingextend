@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace SettingExtend.Provider.File
 {
@@ -12,6 +11,13 @@ namespace SettingExtend.Provider.File
             RootPath = Utility.GetConfig()["FileConfigPath"];
             if (string.IsNullOrWhiteSpace(RootPath))
                 throw new SettingException("配置文件目录未设置。");
+            var fileSystemWatcher = new FileSystemWatcher(RootPath);
+            fileSystemWatcher.IncludeSubdirectories = true;
+            fileSystemWatcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.FileName;
+            fileSystemWatcher.Changed += (obj, arg) => { };
+            fileSystemWatcher.Renamed += (obj, arg) => { };
+            fileSystemWatcher.Created += (obj, arg) => { };
+            fileSystemWatcher.Deleted += (obj, arg) => { };
         }
 
         /// <summary>
@@ -30,11 +36,6 @@ namespace SettingExtend.Provider.File
             if (result != null)
                 return result;
             throw new SettingException("配置节不存在！");
-        }
-
-        public void Change(string path, string value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

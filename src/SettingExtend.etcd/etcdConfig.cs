@@ -35,10 +35,5 @@ namespace SettingExtend.Provider.etcd
                 return result;
             throw new SettingException("配置节不存在！");
         }
-
-        public void Change(string path, string value)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
