@@ -1,6 +1,6 @@
-using CSScriptLib;
 using System;
 using System.Threading.Tasks;
+using CSScriptLib;
 using Xunit;
 
 namespace SettingExtend.Test
@@ -8,7 +8,7 @@ namespace SettingExtend.Test
     public class TextTest
     {
         /// <summary>
-        /// 读取文件1
+        ///     读取文件1
         /// </summary>
         [Fact]
         public void read_text_config()
@@ -19,7 +19,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取文件2
+        ///     读取文件2
         /// </summary>
         [Fact]
         public void read_text_config_with_note_emptyline()
@@ -29,7 +29,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取不存在节点
+        ///     读取不存在节点
         /// </summary>
         [Fact]
         public void read_noexists_config()
@@ -38,7 +38,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取数组
+        ///     读取数组
         /// </summary>
         [Fact]
         public void read_array_config()
@@ -56,7 +56,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取字典配置
+        ///     读取字典配置
         /// </summary>
         [Fact]
         public void read_dictionary_config()
@@ -68,7 +68,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取含代码配置
+        ///     读取含代码配置
         /// </summary>
         [Fact]
         public void read_simplecode_config()
@@ -79,7 +79,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取代码出错
+        ///     读取代码出错
         /// </summary>
         [Fact]
         public void read_errorcode_config()
@@ -88,7 +88,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取文本1
+        ///     读取文本1
         /// </summary>
         [Fact]
         public void read_complexText1_config()
@@ -98,7 +98,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取文本2
+        ///     读取文本2
         /// </summary>
         [Fact]
         public void read_complexText2_config()
@@ -109,7 +109,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取文本3
+        ///     读取文本3
         /// </summary>
         [Fact]
         public void read_complexText3_config()
@@ -122,7 +122,7 @@ namespace SettingExtend.Test
         }
 
         /// <summary>
-        /// 读取文本4、5
+        ///     读取文本4、5
         /// </summary>
         /// <param name="key"></param>
         [Theory]

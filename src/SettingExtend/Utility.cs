@@ -1,21 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace SettingExtend
 {
     /// <summary>
-    /// 帮助类
+    ///     帮助类
     /// </summary>
     public class Utility
     {
         public static ILogger log = new LoggerFactory().CreateLogger<Utility>();
 
-        public static object obj = new object();
-
-        public static IConfiguration Configuration { get; private set; }
+        public static object obj = new();
 
         static Utility()
         {
@@ -36,8 +34,10 @@ namespace SettingExtend
             }
         }
 
+        public static IConfiguration Configuration { get; }
+
         /// <summary>
-        /// 获得程序配置文件
+        ///     获得程序配置文件
         /// </summary>
         /// <returns></returns>
         public static IConfigurationRoot GetConfig()
@@ -49,7 +49,7 @@ namespace SettingExtend
         }
 
         /// <summary>
-        /// 对文本进行格式化，得到配置实体
+        ///     对文本进行格式化，得到配置实体
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
@@ -59,7 +59,7 @@ namespace SettingExtend
         }
 
         /// <summary>
-        /// 对文本进行格式化，得到配置实体
+        ///     对文本进行格式化，得到配置实体
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
@@ -77,22 +77,15 @@ namespace SettingExtend
                 return default;
             var first = array.First();
             if (first.StartsWith(Constant.Type))
-            {
                 return ParseType(key, value, array) as T;
-            }
-            else if (first.StartsWith(Constant.Import) || first.StartsWith(Constant.Variable))
-            {
+            if (first.StartsWith(Constant.Import) || first.StartsWith(Constant.Variable))
                 return ParseTextCode(key, array) as T;
-            }
-            else
-            {
-                return ParseText(key, array) as T;
-            }
+            return ParseText(key, array) as T;
         }
 
 
         /// <summary>
-        /// 类型格式化
+        ///     类型格式化
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
@@ -104,25 +97,16 @@ namespace SettingExtend
             if (arr.Length != 2)
                 throw new SettingException("[头部]-[类型]的语法错误！");
             if (arr[1] == Constant.Array)
-            {
                 return ParseTypeArray(key, value, array);
-            }
-            else if (arr[1] == Constant.Dictionary)
-            {
+            if (arr[1] == Constant.Dictionary)
                 return ParseTypeDictionary(key, value, array);
-            }
-            else if (arr[1] == Constant.Code)
-            {
+            if (arr[1] == Constant.Code)
                 return ParseTypeCode(key, value, array);
-            }
-            else
-            {
-                throw new SettingException("[头部]-[类型]出现不支持的类型：" + arr[1]);
-            }
+            throw new SettingException("[头部]-[类型]出现不支持的类型：" + arr[1]);
         }
 
         /// <summary>
-        /// 数组类型
+        ///     数组类型
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -132,11 +116,11 @@ namespace SettingExtend
         {
             var arr = array
                 .ToArray();
-            return new SettingArray(key, value) { Array = arr };
+            return new SettingArray(key, value) {Array = arr};
         }
 
         /// <summary>
-        /// 字典类型
+        ///     字典类型
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -145,7 +129,7 @@ namespace SettingExtend
         public static SettingDictionary ParseTypeDictionary(string key, string value, string[] array)
         {
             var dic = new Dictionary<string, string>();
-            for (int i = 0; i < array.Length; i++)
+            for (var i = 0; i < array.Length; i++)
             {
                 var arr = array[i].Split(Constant.Equal);
                 if (arr.Length != 2)
@@ -155,15 +139,17 @@ namespace SettingExtend
                     dic.Add(arr[0], arr[1]);
                     continue;
                 }
+
                 if (dic.ContainsKey(arr[0]))
                     throw new SettingException("[头部]-[类型]-[字典]的键重复！");
                 dic.Add(arr[0], arr[1]);
             }
-            return new SettingDictionary(key, value) { Dictionary = dic };
+
+            return new SettingDictionary(key, value) {Dictionary = dic};
         }
 
         /// <summary>
-        /// 代码类型
+        ///     代码类型
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
@@ -172,11 +158,11 @@ namespace SettingExtend
         public static SettingCode ParseTypeCode(string key, string value, string[] array)
         {
             var result = CodeRun.Run(string.Join(Constant.LineRreak, array));
-            return new SettingCode(key, value) { Result = result };
+            return new SettingCode(key, value) {Result = result};
         }
 
         /// <summary>
-        /// 统一过滤
+        ///     统一过滤
         /// </summary>
         /// <param name="array"></param>
         /// <returns></returns>
@@ -189,25 +175,25 @@ namespace SettingExtend
                 if (item.StartsWith(Constant.Notes)) continue;
                 list.Add(item);
             }
+
             return list.ToArray();
         }
 
         /// <summary>
-        /// 文本、代码混合类型
+        ///     文本、代码混合类型
         /// </summary>
         /// <param name="key"></param>
         /// <param name="array"></param>
         /// <returns></returns>
         private static Setting ParseTextCode(string key, string[] array)
         {
-            List<string> list = new List<string>(),
-                dlllist = new List<string>(),
-                nslist = new List<string>(),
-                codelist = new List<string>();
-            List<Setting> settings = new List<Setting>();
-            bool code = false;
+            List<string> list = new(),
+                dlllist = new(),
+                nslist = new(),
+                codelist = new();
+            var settings = new List<Setting>();
+            var code = false;
             foreach (var item in array)
-            {
                 if (item.StartsWith(Constant.Import))
                 {
                     var match = Constant.ImportReg.Match(item);
@@ -227,11 +213,13 @@ namespace SettingExtend
                                     var b = model as SettingArray;
                                     b.Name = var;
                                 }
+
                                 if (model.GetType() == typeof(SettingDictionary))
                                 {
                                     var b = model as SettingDictionary;
                                     b.Name = var;
                                 }
+
                                 settings.Add(model);
                                 break;
                             case Constant.Dll:
@@ -270,13 +258,13 @@ namespace SettingExtend
                     var temp = Replace(settings, item);
                     list.Add(temp);
                 }
-            }
+
             var val = string.Join(Constant.LineRreak, list);
             return new Setting(key, val);
         }
 
         /// <summary>
-        /// 文本类型
+        ///     文本类型
         /// </summary>
         /// <param name="key"></param>
         /// <param name="array"></param>
@@ -290,7 +278,7 @@ namespace SettingExtend
         }
 
         /// <summary>
-        /// 替换字符串中约定的数据类型。
+        ///     替换字符串中约定的数据类型。
         /// </summary>
         /// <param name="settings"></param>
         /// <param name="str"></param>
@@ -303,20 +291,16 @@ namespace SettingExtend
                 if (item.GetType() == typeof(SettingArray))
                 {
                     var obj = item as SettingArray;
-                    for (int i = 0; i < obj.Array.Length; i++)
-                    {
-                        str = str.Replace($"${obj.Name}[{i}]", obj[i]);
-                    }
+                    for (var i = 0; i < obj.Array.Length; i++) str = str.Replace($"${obj.Name}[{i}]", obj[i]);
                 }
+
                 if (item.GetType() == typeof(SettingDictionary))
                 {
                     var obj = item as SettingDictionary;
-                    foreach (var i in obj.Dictionary.Keys)
-                    {
-                        str = str.Replace($"${obj.Name}[\"{i}\"]", obj[i]);
-                    }
+                    foreach (var i in obj.Dictionary.Keys) str = str.Replace($"${obj.Name}[\"{i}\"]", obj[i]);
                 }
             }
+
             return str;
         }
     }

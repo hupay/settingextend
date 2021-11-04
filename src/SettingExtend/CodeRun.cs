@@ -1,13 +1,13 @@
-﻿using CSScriptLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using CSScriptLib;
 
 namespace SettingExtend
 {
-    public partial class CodeRun
+    public class CodeRun
     {
         /// <summary>
-        /// 代码执行
+        ///     代码执行
         /// </summary>
         /// <param name="code"></param>
         /// <param name="dlllist"></param>
@@ -15,15 +15,11 @@ namespace SettingExtend
         /// <returns></returns>
         public static string Run(string code, List<string> dlllist = null, List<string> nslist = null)
         {
-            string ns = string.Empty;
+            var ns = string.Empty;
             if (nslist != null && nslist.Any())
-            {
                 foreach (var item in nslist)
-                {
                     ns += "using " + item + Constant.LineRreak + ";";
-                }
-            }
-            string strExpre = @"
+            var strExpre = @"
 using System;
 using System.Collections.Generic;
 using System.Linq;
