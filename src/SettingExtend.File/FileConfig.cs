@@ -14,6 +14,7 @@ namespace SettingExtend.Provider.File
             var fileSystemWatcher = new FileSystemWatcher(RootPath);
             fileSystemWatcher.IncludeSubdirectories = true;
             fileSystemWatcher.NotifyFilter = NotifyFilters.Size | NotifyFilters.FileName;
+            // TODO 未完成
             fileSystemWatcher.Changed += (obj, arg) => { };
             fileSystemWatcher.Renamed += (obj, arg) => { };
             fileSystemWatcher.Created += (obj, arg) => { };
